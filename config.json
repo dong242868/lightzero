@@ -9,7 +9,7 @@
     {
       "type": "vless",
       "tag": "vless-in",
-      "listen": "::",
+      "listen": "0.0.0.0",
       "listen_port": 8080,
       "users": [
         { "uuid": "aec11a40-4d2b-4d8a-beb5-89aaaf6541a6" }
@@ -33,12 +33,7 @@
   "outbounds": [
     {
       "type": "direct",
-      "tag": "direct",
-      "multiplex": {
-        "enabled": true,
-        "padding": false,
-        "brutal": {}
-      }
+      "tag": "direct"
     }
   ],
   "route": {
