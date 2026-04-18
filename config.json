@@ -15,11 +15,8 @@
         { "uuid": "aec11a40-4d2b-4d8a-beb5-89aaaf6541a6" }
       ],
       "transport": {
-        "type": "ws",
-        "path": "/chat",
-        "headers": {
-          "Accept-Encoding": "gzip, deflate, br"
-        }
+        "type": "grpc",
+        "service_name": "chat"
       },
       "multiplex": {
         "enabled": true,
