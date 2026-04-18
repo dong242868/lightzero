@@ -1,12 +1,60 @@
 {
-  "log": { "level": "info" },
-  "inbounds": [{
-    "type": "vless",
-    "tag": "vless-in",
-    "listen": "::",
-    "listen_port": 8080,
-    "users": [{ "uuid": "aec11a40-4d2b-4d8a-beb5-89aaaf6541a6" }],
-    "transport": { "type": "ws", "path": "/chat" }
-  }],
-  "outbounds": [{ "type": "direct", "tag": "direct" }]
+  "log": { "level": "warn" },
+  "dns": {
+    "servers": [
+      { "tag": "cf", "address": "https://1.1.1.1/dns-query" }
+    ]
+  },
+  "inbounds": [
+    {
+      "type": "vless",
+      "tag": "vless-in",
+      "listen": "::",
+      "listen_port": 8080,
+      "users": [
+        { "uuid": "aec11a40-4d2b-4d8a-beb5-89aaaf6541a6" }
+      ],
+      "transport": {
+        "type": "ws",
+        "path": "/chat",
+        "headers": {
+          "Accept-Encoding": "gzip, deflate, br"
+        }
+      },
+      "multiplex": {
+        "enabled": true,
+        "padding": false,
+        "brutal": {}
+      },
+      "sniff": true,
+      "sniff_override_destination": false
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct",
+      "multiplex": {
+        "enabled": true,
+        "padding": false,
+        "brutal": {}
+      }
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "rules": [
+      {
+        "inbound": ["vless-in"],
+        "outbound": "direct"
+      }
+    ]
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "cache.db",
+      "store_fakeip": false
+    }
+  }
 }
